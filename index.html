@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David | Mi Historia & Proyectos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #FAF7F2;
+      --card-bg: #FFFFFF;
+      --text: #22211F;
+      --text-muted: #6E6A66;
+      --accent: #D96B43;
+      --accent-light: #FCEFEA;
+      --border: #E8E2D9;
+      --placeholder-bg: #F4EFEA;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--card-bg);
+      padding: 36px 40px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .hero-img-container {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hero img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      background-color: var(--placeholder-bg);
+    }
+
+    .hero-text h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Títulos de sección */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Tarjetas generales */
+    .section-card {
+      background: var(--card-bg);
+      padding: 36px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      margin-bottom: 36px;
+    }
+
+    /* Linea de tiempo (Presente y Futuro) */
+    .timeline {
+      position: relative;
+      padding-left: 26px;
+      border-left: 2px solid var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -33px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .timeline-item.active .timeline-dot {
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-light);
+    }
+
+    .timeline-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--accent-light);
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .timeline-badge.future {
+      background: #EFEFEF;
+      color: var(--text-muted);
+    }
+
+    .timeline-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    /* Controles del Slider */
+    .scroll-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .scroll-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s ease;
+      font-size: 1rem;
+    }
+
+    .scroll-btn:hover {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-color: var(--accent);
+    }
+
+    /* Contenedor de Proyectos con Scroll Lateral */
+    .projects-container {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .projects-container::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .projects-container::-webkit-scrollbar-thumb {
+      background-color: var(--border);
+      border-radius: 10px;
+    }
+
+    .project-card {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      background: var(--card-bg);
+      padding: 36px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .project-body {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    /* Cuadrícula 2x2 para las 4 fotos */
+    .photo-grid-4 {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8px;
+      background: var(--bg);
+      padding: 8px;
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+    }
+
+    .photo-box {
+      background: var(--placeholder-bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .project-desc p {
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Contacto */
+    .contact-card {
+      background: var(--card-bg);
+      padding: 30px 36px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .btn-instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--text);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+
+    .btn-instagram:hover {
+      background: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+      .project-body {
+        grid-template-columns: 1fr;
+      }
+      .contact-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Header / Presentación -->
+    <header class="hero">
+      <div class="hero-img-container">
+        <img src="foto-perfil.jpg" alt="Foto de David">
+      </div>
+      <div class="hero-text">
+        <h1>¡Hola, soy David! 👋</h1>
+        <p>En esta web tienes un resumen corto sobre mí y mi interés hacia la informática.</p>
+      </div>
+    </header>
+
+    <!-- Trayectoria: Presente y Futuro -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2>Trayectoria</h2>
+      </div>
+      
+      <div class="timeline">
+        
+        <!-- Presente -->
+        <div class="timeline-item active">
+          <div class="timeline-dot"></div>
+          <span class="timeline-badge">En curso</span>
+          <div class="timeline-title">Cursando 2.º SMR</div>
+          <p class="timeline-desc">Especializándome en la administración de sistemas informáticos, redes locales, servicios web y montaje/mantenimiento de equipos.</p>
+        </div>
+
+        <!-- Futuro -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <span class="timeline-badge future">Próximos pasos</span>
+          <div class="timeline-title">Futuro Profesional</div>
+          <p class="timeline-desc">Estoy pensando entre SysAdmin o especializarme en ciberseguridad, pero por suerte tengo 3 años para decidirme.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Sección de Proyectos -->
+    <section style="margin-bottom: 36px;">
+      <div class="section-header">
+        <h2>Mis Proyectos</h2>
+        <div class="scroll-controls">
+          <button class="scroll-btn" onclick="slideProjects(-1)">❮</button>
+          <button class="scroll-btn" onclick="slideProjects(1)">❯</button>
+        </div>
+      </div>
+
+      <div class="projects-container" id="projectsSlider">
+        
+        <!-- PROYECTO 1 -->
+        <article class="project-card">
+          <h3 class="project-title">01. Proyecto Servidores & Redes</h3>
+          <div class="project-body">
+            
+            <div class="photo-grid-4">
+              <div class="photo-box">Foto 1</div>
+              <div class="photo-box">Foto 2</div>
+              <div class="photo-box">Foto 3</div>
+              <div class="photo-box">Foto 4</div>
+            </div>
+
+            <div class="project-desc">
+              <p>Aquí irá la explicación de lo que hiciste en este proyecto, las pruebas de configuración o el montaje que realizaste durante tus prácticas o estudios.</p>
+              <div class="tags">
+                <span class="tag">Linux</span>
+                <span class="tag">Windows Server</span>
+                <span class="tag">Redes</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- PROYECTO 2 -->
+        <article class="project-card">
+          <h3 class="project-title">02. Laboratorio de Prácticas / Hardware</h3>
+          <div class="project-body">
+            
+            <div class="photo-grid-4">
+              <div class="photo-box">Foto 1</div>
+              <div class="photo-box">Foto 2</div>
+              <div class="photo-box">Foto 3</div>
+              <div class="photo-box">Foto 4</div>
+            </div>
+
+            <div class="project-desc">
+              <p>Espacio reservado para tu segundo proyecto. Puedes hablar de montaje de equipos, scripts de automatización o tus primeros laboratorios de ciberseguridad.</p>
+              <div class="tags">
+                <span class="tag">Hardware</span>
+                <span class="tag">Seguridad</span>
+                <span class="tag">SMR</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contact-card">
+      <div>
+        <h2>¿Quieres contactar conmigo?</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Puedes encontrarme o escribirme por Instagram.</p>
+      </div>
+      <a href="https://instagram.com/frimix.tech" target="_blank" class="btn-instagram">
+        <span>@frimix.tech</span>
+      </a>
+    </section>
+
+  </div>
+
+  <script>
+    const slider = document.getElementById('projectsSlider');
+
+    // Desplazamiento horizontal directo con la rueda del ratón
+    slider.addEventListener('wheel', (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        slider.scrollLeft += e.deltaY * 1.5;
+      }
+    }, { passive: false });
+
+    // Botones de flecha con desplazamiento suave
+    function slideProjects(direction) {
+      const cardWidth = slider.clientWidth;
+      slider.scrollBy({
+        left: direction * cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+</body>
+</html>
