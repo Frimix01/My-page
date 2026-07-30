@@ -33,7 +33,7 @@
     }
 
     .container {
-      max-width: 860px;
+      max-width: 920px;
       margin: 0 auto;
     }
 
@@ -192,8 +192,17 @@
       gap: 20px;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
-      padding-bottom: 12px;
+      padding: 4px 2px 12px;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: thin;
+      cursor: grab;
+      touch-action: pan-x;
+    }
+
+    .projects-container.dragging {
+      cursor: grabbing;
+      user-select: none;
     }
 
     .projects-container::-webkit-scrollbar {
@@ -206,10 +215,10 @@
     }
 
     .project-card {
-      flex: 0 0 100%;
+      flex: 0 0 min(100%, 760px);
       scroll-snap-align: start;
       background: var(--card-bg);
-      padding: 36px;
+      padding: 40px 42px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
@@ -226,21 +235,22 @@
 
     .project-body {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 28px;
-      align-items: center;
+      grid-template-columns: minmax(300px, 360px) 1fr;
+      gap: 32px;
+      align-items: start;
     }
 
     /* Cuadrícula 2x2 para las 4 fotos */
     .photo-grid-4 {
       width: 100%;
+      max-width: 360px;
       aspect-ratio: 1 / 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      gap: 8px;
+      gap: 10px;
       background: var(--bg);
-      padding: 8px;
+      padding: 10px;
       border-radius: 12px;
       border: 1px dashed var(--border);
     }
@@ -256,6 +266,68 @@
       font-size: 0.75rem;
       font-weight: 600;
       text-align: center;
+      overflow: hidden;
+      cursor: zoom-in;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 1000;
+    }
+
+    .image-modal.active {
+      display: flex;
+    }
+
+    .image-modal-content {
+      position: relative;
+      width: min(70vw, 900px);
+      max-height: 78vh;
+      background: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .image-modal-content img {
+      width: 100%;
+      height: auto;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
     }
 
     .project-desc {
@@ -338,7 +410,7 @@
     <!-- Header / Presentación -->
     <header class="hero">
       <div class="hero-img-container">
-        <img src="foto-perfil.jpg" alt="Foto de David">
+        <img src="assets/images/foto-perfil.jpg" alt="Foto de David" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';">
       </div>
       <div class="hero-text">
         <h1>¡Hola, soy David! 👋</h1>
@@ -387,22 +459,21 @@
         
         <!-- PROYECTO 1 -->
         <article class="project-card">
-          <h3 class="project-title">01. Proyecto Servidores & Redes</h3>
+          <h3 class="project-title">01. Reparación De consolas</h3>
           <div class="project-body">
             
             <div class="photo-grid-4">
-              <div class="photo-box">Foto 1</div>
-              <div class="photo-box">Foto 2</div>
-              <div class="photo-box">Foto 3</div>
-              <div class="photo-box">Foto 4</div>
+              <div class="photo-box"><img src="assets/images/proyecto-1-1.jpg" alt="Foto 1 del proyecto 1" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-1-2.jpg" alt="Foto 2 del proyecto 1" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-1-3.jpg" alt="Foto 3 del proyecto 1" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-1-4.jpg" alt="Foto 4 del proyecto 1" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
             </div>
 
             <div class="project-desc">
-              <p>Aquí irá la explicación de lo que hiciste en este proyecto, las pruebas de configuración o el montaje que realizaste durante tus prácticas o estudios.</p>
+              <p>Esta fue la primea vez que que hice mantenimiento a una switch y a una ps4 (mas a adelante), todo salió bien en ambas y me ayudo a quitarme el miedo.</p>
               <div class="tags">
-                <span class="tag">Linux</span>
-                <span class="tag">Windows Server</span>
-                <span class="tag">Redes</span>
+                <span class="tag">Mantenimiento</span>
+                <span class="tag">Productos adecuados</span>
               </div>
             </div>
 
@@ -411,22 +482,95 @@
 
         <!-- PROYECTO 2 -->
         <article class="project-card">
-          <h3 class="project-title">02. Laboratorio de Prácticas / Hardware</h3>
+          <h3 class="project-title">02. Raspberry Pi</h3>
           <div class="project-body">
             
             <div class="photo-grid-4">
-              <div class="photo-box">Foto 1</div>
-              <div class="photo-box">Foto 2</div>
-              <div class="photo-box">Foto 3</div>
-              <div class="photo-box">Foto 4</div>
+              <div class="photo-box"><img src="assets/images/proyecto-2-1.jpg" alt="Foto 1 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-2-2.jpg" alt="Foto 2 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-2-3.jpg" alt="Foto 3 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-2-4.jpg" alt="Foto 4 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
             </div>
 
             <div class="project-desc">
-              <p>Espacio reservado para tu segundo proyecto. Puedes hablar de montaje de equipos, scripts de automatización o tus primeros laboratorios de ciberseguridad.</p>
+              <p>Es poco mas que una raspberry 3b pero me ha servido para probar sistemas operativos de nas como open media vault y similares, tambien he probado so super eficientes.</p>
+              <p>El siguiente nivel que voy a probar es proxmox pero en un pc medianamente potente comparado con la raspberry.</p>
               <div class="tags">
                 <span class="tag">Hardware</span>
                 <span class="tag">Seguridad</span>
                 <span class="tag">SMR</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- PROYECTO 3 -->
+        <article class="project-card">
+          <h3 class="project-title">03. Proyectos de Software</h3>
+          <div class="project-body">
+            
+            <div class="photo-grid-4">
+              <div class="photo-box"><img src="assets/images/proyecto-3-1.jpg" alt="Foto 1 del proyecto 3" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-3-2.jpg" alt="Foto 2 del proyecto 3" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-3-3.jpg" alt="Foto 3 del proyecto 3" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-3-4.jpg" alt="Foto 4 del proyecto 3" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+            </div>
+
+            <div class="project-desc">
+              <p>Aquí puedes explicar tus proyectos de software, scripts, páginas web o herramientas que hayas creado y que quieras mostrar.</p>
+              <div class="tags">
+                <span class="tag">Software</span>
+                <span class="tag">Desarrollo</span>
+                <span class="tag">Web</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- PROYECTO 4 -->
+        <article class="project-card">
+          <h3 class="project-title">04. Proyectos de Red o Servidores</h3>
+          <div class="project-body">
+            
+            <div class="photo-grid-4">
+              <div class="photo-box"><img src="assets/images/proyecto-4-1.jpg" alt="Foto 1 del proyecto 4" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-4-2.jpg" alt="Foto 2 del proyecto 4" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-4-3.jpg" alt="Foto 3 del proyecto 4" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-4-4.jpg" alt="Foto 4 del proyecto 4" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+            </div>
+
+            <div class="project-desc">
+              <p>Espacio para mostrar configuraciones de redes, servidores, máquinas virtuales o servicios que hayas montado y probado.</p>
+              <div class="tags">
+                <span class="tag">Redes</span>
+                <span class="tag">Servidores</span>
+                <span class="tag">Linux</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- PROYECTO 5 -->
+        <article class="project-card">
+          <h3 class="project-title">05. Proyectos Personales o de Aprendizaje</h3>
+          <div class="project-body">
+            
+            <div class="photo-grid-4">
+              <div class="photo-box"><img src="assets/images/proyecto-5-1.jpg" alt="Foto 1 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-5-2.jpg" alt="Foto 2 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-5-3.jpg" alt="Foto 3 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-5-4.jpg" alt="Foto 4 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+            </div>
+
+            <div class="project-desc">
+              <p>Aquí puedes añadir proyectos más personales, experimentos, retos o cosas que te hayan ayudado a aprender mucho.</p>
+              <div class="tags">
+                <span class="tag">Aprendizaje</span>
+                <span class="tag">Personal</span>
+                <span class="tag">Creatividad</span>
               </div>
             </div>
 
@@ -449,18 +593,98 @@
 
   </div>
 
+  <div class="image-modal" id="imageModal" role="dialog" aria-modal="true" aria-label="Vista ampliada de la imagen">
+    <div class="image-modal-content">
+      <button class="image-modal-close" id="imageModalClose" aria-label="Cerrar imagen">✕</button>
+      <img id="modalImage" src="" alt="Imagen ampliada">
+    </div>
+  </div>
+
   <script>
     const slider = document.getElementById('projectsSlider');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('imageModalClose');
 
-    // Desplazamiento horizontal directo con la rueda del ratón
-    slider.addEventListener('wheel', (e) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        slider.scrollLeft += e.deltaY * 1.5;
+    function openImageModal(src, alt) {
+      if (!src) return;
+      modalImage.src = src;
+      modalImage.alt = alt || 'Imagen ampliada';
+      imageModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      imageModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.photo-box img').forEach((img) => {
+      img.addEventListener('click', () => {
+        openImageModal(img.currentSrc || img.src, img.alt);
+      });
+    });
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        closeImageModal();
       }
-    }, { passive: false });
+    });
 
-    // Botones de flecha con desplazamiento suave
+    modalClose.addEventListener('click', closeImageModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+
+    function handleWheelScroll(e) {
+      const deltaX = e.deltaX || e.wheelDeltaX || 0;
+      const deltaY = e.deltaY || e.wheelDeltaY || e.wheelDelta || 0;
+      const scrollAmount = deltaX || deltaY;
+
+      if (!scrollAmount) return;
+      if (slider.scrollWidth <= slider.clientWidth) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+      slider.scrollLeft += scrollAmount * 0.9;
+    }
+
+    slider.addEventListener('wheel', handleWheelScroll, { passive: false, capture: true });
+    slider.addEventListener('mousewheel', handleWheelScroll, { passive: false, capture: true });
+    slider.addEventListener('DOMMouseScroll', handleWheelScroll, { passive: false, capture: true });
+
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeftStart = 0;
+
+    slider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      slider.classList.add('dragging');
+      startX = e.pageX - slider.offsetLeft;
+      scrollLeftStart = slider.scrollLeft;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      slider.scrollLeft = scrollLeftStart - walk;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      slider.classList.remove('dragging');
+    });
+
+    document.addEventListener('mouseleave', () => {
+      isDragging = false;
+      slider.classList.remove('dragging');
+    });
+
     function slideProjects(direction) {
       const cardWidth = slider.clientWidth;
       slider.scrollBy({
