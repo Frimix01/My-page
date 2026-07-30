@@ -241,18 +241,32 @@
     }
 
     /* Cuadrícula 2x2 para las 4 fotos */
-    .photo-grid-4 {
+    .photo-grid-4,
+    .photo-grid-single {
       width: 100%;
       max-width: 360px;
       aspect-ratio: 1 / 1;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 10px;
       background: var(--bg);
       padding: 10px;
       border-radius: 12px;
       border: 1px dashed var(--border);
+    }
+
+    .photo-grid-4 {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .photo-grid-single {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+
+    .photo-grid-single .photo-box {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
     }
 
     .photo-box {
@@ -413,7 +427,7 @@
         <img src="assets/images/foto-perfil.jpg" alt="Foto de David" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';">
       </div>
       <div class="hero-text">
-        <h1>¡Hola, soy David! 👋</h1>
+        <h1>¡Hola, soy David! </h1>
         <p>En esta web tienes un resumen corto sobre mí y mi interés hacia la informática.</p>
       </div>
     </header>
@@ -485,15 +499,12 @@
           <h3 class="project-title">02. Raspberry Pi</h3>
           <div class="project-body">
             
-            <div class="photo-grid-4">
-              <div class="photo-box"><img src="assets/images/proyecto-2-1.jpg" alt="Foto 1 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
-              <div class="photo-box"><img src="assets/images/proyecto-2-2.jpg" alt="Foto 2 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
-              <div class="photo-box"><img src="assets/images/proyecto-2-3.jpg" alt="Foto 3 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
-              <div class="photo-box"><img src="assets/images/proyecto-2-4.jpg" alt="Foto 4 del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+            <div class="photo-grid-single">
+              <div class="photo-box"><img src="assets/images/proyecto-2-1.jpg" alt="Foto principal del proyecto 2" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
             </div>
 
             <div class="project-desc">
-              <p>Es poco mas que una raspberry 3b pero me ha servido para probar sistemas operativos de nas como open media vault y similares, tambien he probado so super eficientes.</p>
+              <p>Es poco mas que una raspberry 3b pero me ha servido para probar sistemas operativos de nas como open media vault con capas como plex por encima y similares, tambien he probado so super eficientes.</p>
               <p>El siguiente nivel que voy a probar es proxmox pero en un pc medianamente potente comparado con la raspberry.</p>
               <div class="tags">
                 <span class="tag">Hardware</span>
@@ -507,7 +518,7 @@
 
         <!-- PROYECTO 3 -->
         <article class="project-card">
-          <h3 class="project-title">03. Proyectos de Software</h3>
+          <h3 class="project-title">03. Reparación y mantenimiento de equipos</h3>
           <div class="project-body">
             
             <div class="photo-grid-4">
@@ -518,11 +529,11 @@
             </div>
 
             <div class="project-desc">
-              <p>Aquí puedes explicar tus proyectos de software, scripts, páginas web o herramientas que hayas creado y que quieras mostrar.</p>
+              <p>Actualmente ya he realizado reparaciónes mantenimientos y estoy muy acostumbrado a trabajar con ellos.</p>
               <div class="tags">
-                <span class="tag">Software</span>
-                <span class="tag">Desarrollo</span>
-                <span class="tag">Web</span>
+                <span class="tag">Reparación</span>
+                <span class="tag">Mantenimiento</span>
+                <span class="tag">Equipos</span>
               </div>
             </div>
 
@@ -531,7 +542,7 @@
 
         <!-- PROYECTO 4 -->
         <article class="project-card">
-          <h3 class="project-title">04. Proyectos de Red o Servidores</h3>
+          <h3 class="project-title">04. Proyectos de Software</h3>
           <div class="project-body">
             
             <div class="photo-grid-4">
@@ -542,11 +553,11 @@
             </div>
 
             <div class="project-desc">
-              <p>Espacio para mostrar configuraciones de redes, servidores, máquinas virtuales o servicios que hayas montado y probado.</p>
+              <p>No es mi especialidad pero apoyado en la ia realice una aplicación que ayuda a crear habitos y esta propia web, soy bastante pro ia creo que quita el limite mecanico y lo deja en lo creativo dentro de la creación del software.</p>
               <div class="tags">
-                <span class="tag">Redes</span>
-                <span class="tag">Servidores</span>
-                <span class="tag">Linux</span>
+                <span class="tag">Software</span>
+                <span class="tag">IA</span>
+                <span class="tag">Android</span>
               </div>
             </div>
 
@@ -555,22 +566,46 @@
 
         <!-- PROYECTO 5 -->
         <article class="project-card">
-          <h3 class="project-title">05. Proyectos Personales o de Aprendizaje</h3>
+          <h3 class="project-title">05. Manipulación de racks</h3>
           <div class="project-body">
             
             <div class="photo-grid-4">
-              <div class="photo-box"><img src="assets/images/proyecto-5-1.jpg" alt="Foto 1 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
-              <div class="photo-box"><img src="assets/images/proyecto-5-2.jpg" alt="Foto 2 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
-              <div class="photo-box"><img src="assets/images/proyecto-5-3.jpg" alt="Foto 3 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
-              <div class="photo-box"><img src="assets/images/proyecto-5-4.jpg" alt="Foto 4 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-6-1.jpg" alt="Foto 1 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-6-2.jpg" alt="Foto 2 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-6-3.jpg" alt="Foto 3 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-6-4.jpg" alt="Foto 4 del proyecto 5" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
             </div>
 
             <div class="project-desc">
-              <p>Aquí puedes añadir proyectos más personales, experimentos, retos o cosas que te hayan ayudado a aprender mucho.</p>
+              <p>Mostrando trabajos de organización de racks, cableado estructurado y montaje de servidores en bastidores.</p>
               <div class="tags">
-                <span class="tag">Aprendizaje</span>
-                <span class="tag">Personal</span>
-                <span class="tag">Creatividad</span>
+                <span class="tag">Racks</span>
+                <span class="tag">Cableado</span>
+                <span class="tag">Mantenimiento</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- PROYECTO 6 -->
+        <article class="project-card">
+          <h3 class="project-title">06. Proxmox de manera profesional</h3>
+          <div class="project-body">
+            
+            <div class="photo-grid-4">
+              <div class="photo-box"><img src="assets/images/proyecto-5-1.jpg" alt="Foto 1 del proyecto 6" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-5-2.jpg" alt="Foto 2 del proyecto 6" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-5-3.jpg" alt="Foto 3 del proyecto 6" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+              <div class="photo-box"><img src="assets/images/proyecto-5-4.jpg" alt="Foto 4 del proyecto 6" loading="lazy" onerror="this.onerror=null; this.src='assets/images/placeholder.svg';"></div>
+            </div>
+
+            <div class="project-desc">
+              <p>Este todavia esta en muy mente pero no queda mucho para llevarlo a cabo.</p>
+              <div class="tags">
+                <span class="tag">Proxmox</span>
+                <span class="tag">Virtualización</span>
+                <span class="tag">Redes</span>
               </div>
             </div>
 
